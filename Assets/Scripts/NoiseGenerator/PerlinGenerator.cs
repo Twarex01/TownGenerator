@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PerlinGenerator : INoiseGenerator
+﻿public class PerlinGenerator : INoiseGenerator
 {
     PerlinGeneratorSettings generatorSettings;
 

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TownGenerator : IMapElementGenerator
+﻿public class TownGenerator : IMapElementGenerator
 {
     TownGeneratorSettings generatorSettings;
 

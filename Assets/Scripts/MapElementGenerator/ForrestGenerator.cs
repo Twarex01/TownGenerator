@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ForrestGenerator : IMapElementGenerator
+﻿public class ForrestGenerator : IMapElementGenerator
 {
     ForrestGeneratorSettings generatorSettings;
 

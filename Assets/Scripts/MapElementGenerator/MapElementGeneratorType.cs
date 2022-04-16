@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum MapElementGeneratorType
+﻿public enum MapElementGeneratorType
 {
     Forrest,
     River,

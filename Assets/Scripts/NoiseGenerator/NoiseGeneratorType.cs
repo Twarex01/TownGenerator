@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum NoiseGeneratorType
+﻿public enum NoiseGeneratorType
 {
     Perlin
 }

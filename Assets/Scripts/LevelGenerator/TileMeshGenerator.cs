@@ -42,7 +42,10 @@ public class TileMeshGenerator : MonoBehaviour
         {
             for (int x = 0; x <= tileXSize; x++)
             {
-                noiseValues[i] = noiseGenerator.Generate(x, z);
+                var offsetX = gameObject.transform.position.x;
+                var offsetZ = gameObject.transform.position.z;
+
+                noiseValues[i] = noiseGenerator.Generate(x, z, offsetX, offsetZ);
 
                 if (noiseValues[i] > maxTerrainHeight)
                     maxTerrainHeight = noiseValues[i];
@@ -99,12 +102,12 @@ public class TileMeshGenerator : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
-    private void OnDrawGizmos()
-    {
-        if (vertices == null || vertices.Length == 0)
-            return;
+    //private void OnDrawGizmos()
+    //{
+    //    if (vertices == null || vertices.Length == 0)
+    //        return;
 
-        for (int i = 0; i < vertices.Length; i++)
-            Gizmos.DrawSphere(vertices[i] + transform.position, .1f);
-    }
+    //    for (int i = 0; i < vertices.Length; i++)
+    //        Gizmos.DrawSphere(vertices[i] + transform.position, .1f);
+    //}
 }

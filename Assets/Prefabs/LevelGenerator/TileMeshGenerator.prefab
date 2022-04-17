@@ -99,8 +99,6 @@ MonoBehaviour:
       multiplier: 3
     generatorType: 0
     perlinGeneratorSettings:
-      width: 10
-      height: 10
       scale: 3
   tileXSize: 10
   tileZSize: 10

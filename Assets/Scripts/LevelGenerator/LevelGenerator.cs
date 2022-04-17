@@ -25,6 +25,7 @@ public class LevelGenerator : MonoBehaviour
         var xSize = tileMeshGenerator.tileXSize;
         var zSize = tileMeshGenerator.tileZSize;
 
+        int i = 0;
         for (int xTileIndex = 0; xTileIndex < levelXSize; xTileIndex++)
         {
             for (int zTileIndex = 0; zTileIndex < levelYSize; zTileIndex++)
@@ -37,6 +38,9 @@ public class LevelGenerator : MonoBehaviour
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
 
                 tile.transform.SetParent(gameObject.transform);
+                tile.transform.name = $"Tile {i}";
+
+                i++;
 
                 //TODO: TileData <- Biome, Zone
             }

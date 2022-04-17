@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
@@ -32,11 +33,6 @@ public class TileMeshGenerator : MonoBehaviour
     {
         vertices = new Vector3[VerticesLength];
 
-        var noiseValues = new float[(tileXSize + 1) * (tileZSize + 1)];
-
-        var maxTerrainHeight = float.MinValue;
-        var minTerrainHeight = float.MaxValue;
-
         int i = 0;
         for (int z = 0; z <= tileZSize; z++)
         {
@@ -45,28 +41,14 @@ public class TileMeshGenerator : MonoBehaviour
                 var offsetX = gameObject.transform.position.x;
                 var offsetZ = gameObject.transform.position.z;
 
-                noiseValues[i] = noiseGenerator.Generate(x, z, offsetX, offsetZ);
+                var noiseValue = Mathf.Clamp(noiseGenerator.Generate(x, z, offsetX, offsetZ), 0.0f, 1.0f);
 
-                if (noiseValues[i] > maxTerrainHeight)
-                    maxTerrainHeight = noiseValues[i];
-                if (noiseValues[i] < minTerrainHeight)
-                    minTerrainHeight = noiseValues[i];
-
-                i++;
-            }
-        }
-
-        int j = 0;
-        for (int z = 0; z <= tileZSize; z++)
-        {
-            for (int x = 0; x <= tileXSize; x++)
-            {
-                vertices[j] = new Vector3(
+                vertices[i] = new Vector3(
                     x,
-                    Mathf.InverseLerp(minTerrainHeight, maxTerrainHeight, noiseValues[j]) * noiseGeneratorSettings.baseGeneratorSettings.multiplier,
+                    noiseValue * noiseGeneratorSettings.baseGeneratorSettings.multiplier,
                     z);
 
-                j++;
+                i++;
             }
         }
 

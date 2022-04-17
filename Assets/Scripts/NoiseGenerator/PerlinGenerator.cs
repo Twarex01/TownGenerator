@@ -11,8 +11,8 @@ public class PerlinGenerator : INoiseGenerator
 
     public float Generate(int x, int y, float offsetX, float offsetY)
     {
-        float xCoord = (x + offsetX) / generatorSettings.scale;
-        float yCoord = (y + offsetY) / generatorSettings.scale;
+        float xCoord = (x + offsetX) / generatorSettings.width * generatorSettings.scale;
+        float yCoord = (y + offsetY) / generatorSettings.height * generatorSettings.scale;
         return Mathf.PerlinNoise(xCoord, yCoord);
     }
 }

@@ -31,9 +31,9 @@ public class LevelGenerator : MonoBehaviour
             for (int zTileIndex = 0; zTileIndex < levelYSize; zTileIndex++)
             {
                 var tilePosition = new Vector3(
-                    this.gameObject.transform.position.x + xTileIndex * xSize,
-                    this.gameObject.transform.position.y,
-                    this.gameObject.transform.position.z + zTileIndex * zSize);
+                    gameObject.transform.position.x + xTileIndex * xSize,
+                    gameObject.transform.position.y,
+                    gameObject.transform.position.z + zTileIndex * zSize);
 
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
 

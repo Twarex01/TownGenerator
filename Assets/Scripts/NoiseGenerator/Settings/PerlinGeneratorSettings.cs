@@ -3,5 +3,7 @@
 [Serializable]
 public class PerlinGeneratorSettings
 {
-    public float scale = 0.3f;
+    public int width = 10;
+    public int height = 10;
+    public float scale = 3f;
 }

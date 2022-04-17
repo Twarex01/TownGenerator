@@ -96,9 +96,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noiseGeneratorSettings:
     baseGeneratorSettings:
-      multiplier: 3
+      multiplier: 20
     generatorType: 0
     perlinGeneratorSettings:
-      scale: 3
+      width: 10
+      height: 10
+      scale: 2
   tileXSize: 10
   tileZSize: 10

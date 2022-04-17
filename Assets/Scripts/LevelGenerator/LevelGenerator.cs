@@ -8,12 +8,11 @@ public class LevelGenerator : MonoBehaviour
     public int levelXSize;
     public int levelYSize;
 
-    public void Start()
+    public void Start() 
     {
         GenerateMapFromTile();
-
-        //TODO: Generate on Button
     }
+
     public void GenerateMapFromTile()
     {
         foreach (Transform child in transform)
@@ -45,8 +44,6 @@ public class LevelGenerator : MonoBehaviour
     }
 }
 
-
-//TODO: Editor
 [CustomEditor(typeof(LevelGenerator))]
 class LevelGeneratorEditor : Editor
 {

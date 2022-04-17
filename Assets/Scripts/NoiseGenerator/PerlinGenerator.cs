@@ -1,4 +1,6 @@
-﻿public class PerlinGenerator : INoiseGenerator
+﻿using UnityEngine;
+
+public class PerlinGenerator : INoiseGenerator
 {
     PerlinGeneratorSettings generatorSettings;
 
@@ -9,6 +11,8 @@
 
     public float Generate(int x, int y)
     {
-        throw new System.NotImplementedException();
+        float xCoord = x / generatorSettings.width * generatorSettings.scale;
+        float yCoord = y / generatorSettings.height * generatorSettings.scale;
+        return Mathf.PerlinNoise(xCoord, yCoord);
     }
 }

@@ -342,5 +342,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 7992587263663436275, guid: cba5371f13260db4bad171c69e8cec79, type: 3}
-  levelXSize: 5
-  levelYSize: 5
+  levelXSize: 1
+  levelYSize: 1

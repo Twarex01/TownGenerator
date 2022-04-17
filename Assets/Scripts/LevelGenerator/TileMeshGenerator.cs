@@ -1,26 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
 public class TileMeshGenerator : MonoBehaviour
 {
     private Mesh mesh;
-
     private Vector3[] vertices;
     private int[] triangles;
 
-    public int tileXSize;
-    public int tileZSize;
-
     public int VerticesLength { get { return (tileXSize + 1) * (tileZSize + 1); } }
     public int TrianglesLength { get { return tileXSize * tileZSize * 6; } }
+
+    public NoiseGeneratorSettings noiseGeneratorSettings;
+    private INoiseGenerator noiseGenerator;
+
+    public int tileXSize;
+    public int tileZSize;
 
     private void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
+
+        noiseGenerator = NoiseGeneratorFactory.CreateNoiseGenerator(noiseGeneratorSettings);
 
         CreateQuad();
         UpdateMesh();
@@ -30,15 +32,38 @@ public class TileMeshGenerator : MonoBehaviour
     {
         vertices = new Vector3[VerticesLength];
 
-        //TODO: Noise
+        var noiseValues = new float[(tileXSize + 1) * (tileZSize + 1)];
+
+        var maxTerrainHeight = float.MinValue;
+        var minTerrainHeight = float.MaxValue;
+
         int i = 0;
         for (int z = 0; z <= tileZSize; z++)
         {
             for (int x = 0; x <= tileXSize; x++)
             {
-                vertices[i] = new Vector3(x, 0, z);
+                noiseValues[i] = noiseGenerator.Generate(x, z);
+
+                if (noiseValues[i] > maxTerrainHeight)
+                    maxTerrainHeight = noiseValues[i];
+                if (noiseValues[i] < minTerrainHeight)
+                    minTerrainHeight = noiseValues[i];
 
                 i++;
+            }
+        }
+
+        int j = 0;
+        for (int z = 0; z <= tileZSize; z++)
+        {
+            for (int x = 0; x <= tileXSize; x++)
+            {
+                vertices[j] = new Vector3(
+                    x,
+                    Mathf.InverseLerp(minTerrainHeight, maxTerrainHeight, noiseValues[j]) * noiseGeneratorSettings.baseGeneratorSettings.multiplier,
+                    z);
+
+                j++;
             }
         }
 

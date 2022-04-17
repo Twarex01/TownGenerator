@@ -1,4 +1,7 @@
-﻿public enum NoiseGeneratorType
+﻿using System;
+
+[Serializable]
+public enum NoiseGeneratorType
 {
     Perlin
 }

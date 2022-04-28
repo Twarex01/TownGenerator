@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noiseGeneratorSettings:
     baseGeneratorSettings:
-      multiplier: 20
+      multiplier: 5
     generatorType: 0
     perlinGeneratorSettings:
       width: 10

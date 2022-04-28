@@ -13,11 +13,20 @@ public class LevelGenerator : MonoBehaviour
         GenerateMapFromTile();
     }
 
+
+    public void ClearGeneratedTiles() 
+    {
+        while (transform.childCount != 0)
+        {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
+    }
+
     public void GenerateMapFromTile()
     {
-        foreach (Transform child in transform)
+        while (transform.childCount != 0)
         {
-            Destroy(child.gameObject);
+            DestroyImmediate(transform.GetChild(0).gameObject);
         }
 
         var tileMeshGenerator = tilePrefab.GetComponent<TileMeshGenerator>();
@@ -36,6 +45,8 @@ public class LevelGenerator : MonoBehaviour
                     gameObject.transform.position.z + zTileIndex * zSize);
 
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+
+                tile.GetComponent<TileMeshGenerator>().Init();
 
                 tile.transform.SetParent(gameObject.transform);
                 tile.transform.name = $"Tile {i}";
@@ -59,6 +70,9 @@ class LevelGeneratorEditor : Editor
 
         if (GUILayout.Button("Generate"))
             levelGenerator.GenerateMapFromTile();
+
+        if (GUILayout.Button("Clear"))
+            levelGenerator.ClearGeneratedTiles();
     }
 
     private void OnEnable()

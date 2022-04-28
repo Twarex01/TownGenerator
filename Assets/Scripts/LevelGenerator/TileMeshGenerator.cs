@@ -18,7 +18,7 @@ public class TileMeshGenerator : MonoBehaviour
     public int tileXSize;
     public int tileZSize;
 
-    private void Start()
+    public void Init()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -51,6 +51,8 @@ public class TileMeshGenerator : MonoBehaviour
                 i++;
             }
         }
+
+        //TODO: Add min for towns
 
         triangles = new int[TrianglesLength];
 

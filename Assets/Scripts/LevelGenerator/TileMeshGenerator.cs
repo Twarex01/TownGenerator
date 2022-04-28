@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
@@ -43,6 +42,9 @@ public class TileMeshGenerator : MonoBehaviour
 
                 var noiseValue = Mathf.Clamp(noiseGenerator.Generate(x, z, offsetX, offsetZ), 0.0f, 1.0f);
 
+                if (noiseValue < noiseGeneratorSettings.baseGeneratorSettings.minValue)
+                    noiseValue = noiseGeneratorSettings.baseGeneratorSettings.minValue;
+
                 vertices[i] = new Vector3(
                     x,
                     noiseValue * noiseGeneratorSettings.baseGeneratorSettings.multiplier,
@@ -84,6 +86,14 @@ public class TileMeshGenerator : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
+    }
+
+    public void SetTileData(TileData tileData) 
+    {
+        if (tileData != null)
+            throw new System.Exception("TileData already set!");
+
+        
     }
 
     //private void OnDrawGizmos()

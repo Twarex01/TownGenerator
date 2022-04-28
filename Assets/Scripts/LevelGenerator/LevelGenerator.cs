@@ -13,7 +13,6 @@ public class LevelGenerator : MonoBehaviour
         GenerateMapFromTile();
     }
 
-
     public void ClearGeneratedTiles() 
     {
         while (transform.childCount != 0)
@@ -29,10 +28,10 @@ public class LevelGenerator : MonoBehaviour
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
 
-        var tileMeshGenerator = tilePrefab.GetComponent<TileMeshGenerator>();
+        var prefabMeshGenerator = tilePrefab.GetComponent<TileMeshGenerator>();
 
-        var xSize = tileMeshGenerator.tileXSize;
-        var zSize = tileMeshGenerator.tileZSize;
+        var xSize = prefabMeshGenerator.tileXSize;
+        var zSize = prefabMeshGenerator.tileZSize;
 
         int i = 0;
         for (int xTileIndex = 0; xTileIndex < levelXSize; xTileIndex++)
@@ -46,14 +45,20 @@ public class LevelGenerator : MonoBehaviour
 
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
 
-                tile.GetComponent<TileMeshGenerator>().Init();
+                var tileMeshGenerator = tile.GetComponent<TileMeshGenerator>();
+
+                tileMeshGenerator.Init();
 
                 tile.transform.SetParent(gameObject.transform);
                 tile.transform.name = $"Tile {i}";
 
                 i++;
 
-                //TODO: TileData <- Biome, Zone
+                //TODO: Other TileData generators go here
+                //TODO: Fill TileData
+                //TODO: All of these determine the Biome
+
+                //TODO: -> Pick Zone? Is it needed here?
             }
         }
     }

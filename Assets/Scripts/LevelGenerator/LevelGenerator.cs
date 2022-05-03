@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -7,11 +8,6 @@ public class LevelGenerator : MonoBehaviour
 
     public int levelXSize;
     public int levelYSize;
-
-    public void Start() 
-    {
-        GenerateMapFromTile();
-    }
 
     public void ClearGeneratedTiles() 
     {
@@ -23,6 +19,10 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateMapFromTile()
     {
+        var biomeSetter = GetComponent<BiomeSetter>();
+
+        biomeSetter.TestData();
+
         while (transform.childCount != 0)
         {
             DestroyImmediate(transform.GetChild(0).gameObject);
@@ -30,8 +30,8 @@ public class LevelGenerator : MonoBehaviour
 
         var prefabMeshGenerator = tilePrefab.GetComponent<TileMeshGenerator>();
 
-        var xSize = prefabMeshGenerator.tileXSize;
-        var zSize = prefabMeshGenerator.tileZSize;
+        var tileXSize = prefabMeshGenerator.tileXSize;
+        var tileZSize = prefabMeshGenerator.tileZSize;
 
         int i = 0;
         for (int xTileIndex = 0; xTileIndex < levelXSize; xTileIndex++)
@@ -39,9 +39,9 @@ public class LevelGenerator : MonoBehaviour
             for (int zTileIndex = 0; zTileIndex < levelYSize; zTileIndex++)
             {
                 var tilePosition = new Vector3(
-                    gameObject.transform.position.x + xTileIndex * xSize,
+                    gameObject.transform.position.x + xTileIndex * tileXSize,
                     gameObject.transform.position.y,
-                    gameObject.transform.position.z + zTileIndex * zSize);
+                    gameObject.transform.position.z + zTileIndex * tileZSize);
 
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
 
@@ -52,8 +52,27 @@ public class LevelGenerator : MonoBehaviour
                 tile.transform.SetParent(gameObject.transform);
                 tile.transform.name = $"Tile {i}";
 
-                i++;
+                var chosenBiomes = new List<BiomeData>();
 
+                for (int tileX = 0; tileX < tileXSize; tileX++)
+                {
+                    for (int tileZ = 0; tileZ < tileZSize; tileZ++)
+                    {
+                        //TODO
+                        //On tile pos x, z, get y
+
+                        var currentBiomeData = new BiomeData(biomeSetter.PickBiome(tile.transform.position.y), tileX, tileZ);
+
+                        chosenBiomes.Add(currentBiomeData);
+                    }
+                }
+
+                var tileData = new TileData(chosenBiomes);
+
+                tileMeshGenerator.SetTileData(tileData);
+
+                i++;
+                
                 //TODO: Other TileData generators go here
                 //TODO: Fill TileData
                 //TODO: All of these determine the Biome

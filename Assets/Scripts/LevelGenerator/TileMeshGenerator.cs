@@ -17,6 +17,8 @@ public class TileMeshGenerator : MonoBehaviour
     public int tileXSize;
     public int tileZSize;
 
+    public TileData tileData;
+
     public void Init()
     {
         mesh = new Mesh();
@@ -54,8 +56,6 @@ public class TileMeshGenerator : MonoBehaviour
             }
         }
 
-        //TODO: Add min for towns
-
         triangles = new int[TrianglesLength];
 
         int vert = 0;
@@ -90,10 +90,12 @@ public class TileMeshGenerator : MonoBehaviour
 
     public void SetTileData(TileData tileData) 
     {
-        if (tileData != null)
-            throw new System.Exception("TileData already set!");
+        //TODO: Check
 
-        
+        //if (tileData != null)
+        //    throw new System.Exception("TileData already set!");
+
+        this.tileData = tileData;
     }
 
     //private void OnDrawGizmos()

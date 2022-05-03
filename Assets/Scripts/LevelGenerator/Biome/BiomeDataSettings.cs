@@ -7,4 +7,6 @@ public class BiomeDataSettings
     public string name;
 
     public Color color;
+
+    public float minHeight;
 }

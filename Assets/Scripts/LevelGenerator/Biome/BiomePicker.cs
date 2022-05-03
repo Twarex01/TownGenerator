@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class BiomeSetter : MonoBehaviour
+public class BiomePicker : MonoBehaviour
 {
     //Dictionary workaround
     public List<BiomeDataSettings> biomeDataSettings;
@@ -17,8 +17,6 @@ public class BiomeSetter : MonoBehaviour
 
     public BiomeDataSettings PickBiome(float height) 
     {
-        //TODO
-
-        return new BiomeDataSettings { color = new Color(), name = "asd"};
+        return biomeDataSettings.OrderByDescending(x => x.minHeight).First(x => x.minHeight <= height);
     }
 }

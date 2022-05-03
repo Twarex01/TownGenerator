@@ -5,7 +5,7 @@
 public class TileMeshGenerator : MonoBehaviour
 {
     private Mesh mesh;
-    private Vector3[] vertices;
+    public Vector3[] vertices;
     private int[] triangles;
 
     public int VerticesLength { get { return (tileXSize + 1) * (tileZSize + 1); } }
@@ -18,6 +18,8 @@ public class TileMeshGenerator : MonoBehaviour
     public int tileZSize;
 
     public TileData tileData;
+
+    //TODO: Move to Game Object
 
     public void Init()
     {

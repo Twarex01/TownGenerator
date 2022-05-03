@@ -5,14 +5,14 @@ public class BiomeData
 {
     public BiomeDataSettings biomeData;
 
-    public float tilePosX;
+    public float tileVertexPosX;
 
-    public float tilePosZ;
+    public float tileVertexPosZ;
 
-    public BiomeData(BiomeDataSettings biomeData, float tilePosX, float tilePosZ)
+    public BiomeData(BiomeDataSettings biomeData, float tileVertexPosX, float tileVertexPosZ)
     {
         this.biomeData = biomeData;
-        this.tilePosX = tilePosX;
-        this.tilePosZ = tilePosZ;
+        this.tileVertexPosX = tileVertexPosX;
+        this.tileVertexPosZ = tileVertexPosZ;
     }
 }

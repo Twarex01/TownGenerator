@@ -19,7 +19,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateMapFromTile()
     {
-        var biomeSetter = GetComponent<BiomeSetter>();
+        var biomeSetter = GetComponent<BiomePicker>();
 
         biomeSetter.TestData();
 
@@ -54,17 +54,11 @@ public class LevelGenerator : MonoBehaviour
 
                 var chosenBiomes = new List<BiomeData>();
 
-                for (int tileX = 0; tileX < tileXSize; tileX++)
-                {
-                    for (int tileZ = 0; tileZ < tileZSize; tileZ++)
-                    {
-                        //TODO
-                        //On tile pos x, z, get y
+                foreach (var vertex in tileMeshGenerator.vertices)
+                {                   
+                    var currentBiomeData = new BiomeData(biomeSetter.PickBiome(tile.transform.position.y), vertex.x, vertex.z);
 
-                        var currentBiomeData = new BiomeData(biomeSetter.PickBiome(tile.transform.position.y), tileX, tileZ);
-
-                        chosenBiomes.Add(currentBiomeData);
-                    }
+                    chosenBiomes.Add(currentBiomeData);
                 }
 
                 var tileData = new TileData(chosenBiomes);
